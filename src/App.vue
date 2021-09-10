@@ -1,14 +1,17 @@
 <template>
   <Header/>
+  <Galery/>
 </template>
 
 <script>
-import Header from './components/Header.vue'
+import Header from './components/Header.vue';
+import Galery from './components/Galery.vue';
 
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+    Galery
   }
 }
 </script>
