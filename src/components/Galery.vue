@@ -1,16 +1,20 @@
 <template>
   <div class="scene">
     <div class="carousel">
-      <div class="carousel__cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel__cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel__cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel__cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel__cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel__cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel__cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel__cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel__cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel__cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
+      <!-- <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
+      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
+      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
+      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
+      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
+      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
+      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
+      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
+      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
+      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div> -->
+
+      <div class="carousel-cell" v-for="(picture, i) in pictures" :key="i">
+        <img class="cell-image" :src="picture.hdurl" v-if="picture.copyright != 'video'" />
+      </div>
     </div>
   </div>
 
@@ -35,13 +39,21 @@
 
 <script>
 export default {
+  props: {
+    pictures: {
+      type: Array,
+      require: true
+    }
+  },
   mounted() {
-    this.init();
+    console.log(this.pictures);
+    this.initGalery();
   },
   methods: {
-    init() {
+    initGalery() {
       var carousel = document.querySelector('.carousel');
-      var cells = carousel.querySelectorAll('.carousel__cell');
+      var cells = carousel.querySelectorAll('.carousel-cell');
+      console.log(cells);
       var cellCount;
       var selectedIndex = 0;
       var cellWidth = carousel.offsetWidth;
@@ -111,7 +123,7 @@ export default {
 
 <style>
 .scene {
-  border: 1px solid #CCC;
+  /* border: 1px solid #CCC; */
   position: relative;
   width: 840px;
   height: 560px;
@@ -127,7 +139,7 @@ export default {
   transition: transform 1s;
 }
 
-.carousel__cell {
+.carousel-cell {
   position: absolute;
   width: 760px;
   height: 480px;
@@ -139,6 +151,10 @@ export default {
   font-weight: bold;
   text-align: center;
   transition: transform 1s, opacity 1s;
+}
+
+.carousel-cell:hover {
+  cursor: pointer;
 }
 
 .carousel-options {
