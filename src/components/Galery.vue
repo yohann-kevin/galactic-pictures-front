@@ -1,29 +1,18 @@
 <template>
   <div class="scene">
     <div class="carousel">
-      <!-- <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div>
-      <div class="carousel-cell"><img class="cell-image" src="../assets/images/LastRingPortrait_Cassini_1080.jpg" /></div> -->
-
       <div class="carousel-cell" v-for="(picture, i) in pictures" :key="i">
-        <img class="cell-image" :src="picture.hdurl" v-if="picture.copyright != 'video'" />
+        <img class="cell-image" :src="picture.hdurl"/>
       </div>
     </div>
   </div>
 
   <div class="carousel-options">
-    <p>
+    <div>
       <button class="previous-button">Previous</button>
       <button class="next-button">Next</button>
-    </p>
-    <p>
+    </div>
+    <div>
       Orientation:
       <label>
         <input type="radio" name="orientation" value="horizontal" checked />
@@ -33,7 +22,7 @@
         <input type="radio" name="orientation" value="vertical" />
         vertical
       </label>
-    </p>
+    </div>
   </div>
 </template>
 
@@ -46,15 +35,14 @@ export default {
     }
   },
   mounted() {
-    console.log(this.pictures);
+    console.log(this.pictures.length);
     this.initGalery();
   },
   methods: {
     initGalery() {
       var carousel = document.querySelector('.carousel');
       var cells = carousel.querySelectorAll('.carousel-cell');
-      console.log(cells);
-      var cellCount;
+      var cellCount = 10;
       var selectedIndex = 0;
       var cellWidth = carousel.offsetWidth;
       var cellHeight = carousel.offsetHeight;
@@ -80,7 +68,6 @@ export default {
       });
 
       function changeCarousel() {
-        cellCount = 10;
         theta = 360 / cellCount;
         var cellSize = isHorizontal ? cellWidth : cellHeight;
         radius = Math.round( ( cellSize / 2) / Math.tan( Math.PI / cellCount ) );
@@ -123,7 +110,6 @@ export default {
 
 <style>
 .scene {
-  /* border: 1px solid #CCC; */
   position: relative;
   width: 840px;
   height: 560px;
@@ -163,6 +149,10 @@ export default {
   position: relative;
   z-index: 2;
   background: hsla(0, 0%, 100%, 0.8);
+}
+
+.carousel-options div {
+  padding: 15px;
 }
 
 .cell-image {
