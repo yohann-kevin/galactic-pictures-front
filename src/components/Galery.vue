@@ -2,7 +2,7 @@
   <div class="scene">
     <div class="carousel">
       <div class="carousel-cell" v-for="(picture, i) in pictures" :key="i">
-        <img class="cell-image" :src="picture.hdurl"/>
+        <img class="cell-image" :src="picture.url"/>
       </div>
     </div>
   </div>
