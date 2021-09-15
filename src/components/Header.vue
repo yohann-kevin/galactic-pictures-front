@@ -13,7 +13,7 @@
         </ul>
       </nav>
       <div class="header-button">
-        <button><router-link to="/sign-up">Login</router-link></button>
+        <button><router-link to="/login">Login</router-link></button>
         <button><router-link to="/sign-up">Sign in</router-link></button>
       </div>
   </header>
