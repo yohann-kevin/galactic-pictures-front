@@ -1,11 +1,11 @@
 <template>
   <Header/>
-  <Galery v-if="pictures.length != 0" :pictures="pictures"/>
+  <router-view v-if="pictures.length != 0" :pictures="pictures"></router-view>
 </template>
 
 <script>
 import Header from './components/Header.vue';
-import Galery from './components/Galery.vue';
+// import Galery from './components/Galery.vue';
 
 import axios from 'axios';
 
@@ -13,7 +13,7 @@ export default {
   name: 'App',
   components: {
     Header,
-    Galery
+    // Galery
   },
   data() {
     return {

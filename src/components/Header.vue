@@ -6,15 +6,15 @@
       </div>
       <nav class="header-nav">
         <ul>
-          <li><a href="#">Home</a></li>
+          <li><router-link to="/">Galery</router-link></li>
           <li><a href="#">Plop</a></li>
           <li><a href="#">Plop</a></li>
           <li><a href="#">Plop</a></li>
         </ul>
       </nav>
       <div class="header-button">
-        <button>Login</button>
-        <button>Sign in</button>
+        <button><router-link to="/sign-up">Login</router-link></button>
+        <button><router-link to="/sign-up">Sign in</router-link></button>
       </div>
   </header>
 </template>
@@ -104,5 +104,15 @@ export default {
 
 .header-button button:nth-child(2) {
   border-top: 1px solid #000;
+}
+
+.header-button button > a {
+  text-decoration: none;
+  color: #000;
+  transition: 0.7s;
+}
+
+.header-button button:hover > a {
+  color: #fff;
 }
 </style>

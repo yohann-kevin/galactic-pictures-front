@@ -28,14 +28,22 @@
 
 <script>
 export default {
+  data() {
+    return {
+      currentPictures: null
+    }
+  },
   props: {
     pictures: {
       type: Array,
       require: true
     }
   },
+  created() {
+    this.currentPictures = this.pictures;
+  },
   mounted() {
-    console.log(this.pictures.length);
+    console.log(this.pictures);
     this.initGalery();
   },
   methods: {
@@ -51,6 +59,7 @@ export default {
       var radius, theta;
 
       function rotateCarousel() {
+        // if (rotateCount != 0) this.currentPictures.push(this.currentPictures.shift());
         var angle = theta * selectedIndex * -1;
         carousel.style.transform = 'translateZ(' + -radius + 'px) ' + rotateFn + '(' + angle + 'deg)';
       }
@@ -133,7 +142,7 @@ export default {
   top: 20px;
   border: 2px solid black;
   line-height: 232px;
-  font-size: 160px;
+  font-size: 80px;
   font-weight: bold;
   text-align: center;
   transition: transform 1s, opacity 1s;
