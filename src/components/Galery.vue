@@ -1,7 +1,7 @@
 <template>
   <div class="scene">
     <div class="carousel">
-      <div class="carousel-cell" v-for="(picture, i) in pictures" :key="i">
+      <div class="carousel-cell" v-for="(picture, selectedIndex) in pictures" :key="selectedIndex">
         <img class="cell-image" :src="picture.url"/>
       </div>
     </div>
@@ -33,14 +33,15 @@ export default {
       currentPictures: null,
       carousel: null,
       cells: null,
-      cellCount: 10,
+      cellCount: 15,
       selectedIndex: 0,
       cellWidth: null,
       cellHeight: null,
       isHorizontal: true,
       rotateFn: null,
       radius: null,
-      theta: null
+      theta: null,
+      rotateCount: 0
     }
   },
   props: {
@@ -67,9 +68,15 @@ export default {
       this.onOrientationChange();
     },
     rotateCarousel() {
-      // if (rotateCount != 0) this.currentPictures.push(this.currentPictures.shift());
+      if ((this.selectedIndex % 15) == 0 && this.selectedIndex != 0) {
+        for (let i = 0; i < 15; i++) this.currentPictures.push(this.currentPictures.splice(i, 1)[0]);
+      }
       let angle = this.theta * this.selectedIndex * -1;
       this.carousel.style.transform = 'translateZ(' + -this.radius + 'px) ' + this.rotateFn + '(' + angle + 'deg)';
+      
+      // this.rotateCount++;
+      console.log(this.currentPictures);
+      console.log(this.selectedIndex);
     },
     changeCarousel() {
       this.theta = 360 / this.cellCount;
