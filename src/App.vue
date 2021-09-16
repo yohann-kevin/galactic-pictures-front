@@ -22,11 +22,19 @@ export default {
     return {
       axios: axios,
       pictures: [],
-      pictureSelected: null
+      pictureSelected: null,
+      data: {
+        "username": "plop",
+        "password": "plop-man"
+      }
     }
   },
   mounted() {
     this.getPictures();
+    // save data in store
+    // this.$store.commit("currentUser", this.data);
+    // get data in storre
+    // console.log(this.$store.state);
   },
   methods: {
     getPictures() {

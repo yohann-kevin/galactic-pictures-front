@@ -62,10 +62,15 @@ export default {
       };
 
       this.axios(config).then(response => {
-        console.log(response.data);
+        this.saveUserLog(response.data);
       }).catch(error => {
         console.log(error);
       });
+    },
+    saveUserLog(data) {
+      console.log(data);
+      this.$store.commit("currentUser", data);
+      console.log(this.$store.state.currentUser);
     }
   },
 }
