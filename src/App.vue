@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import Header from './components/HeaderEmpty.vue';
+import Header from './components/Header.vue';
 // import Galery from './components/Galery.vue';
 
 import axios from 'axios';
