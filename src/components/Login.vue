@@ -30,52 +30,47 @@ export default {
       this.userLogin();
     },
     userLogin() {
-      var header = new Headers();
-      header.append("Cookie", "JSESSIONID=5105E067238ECC9B41A3533150CB2088");
+      var data = JSON.stringify({
+        "login": this.login,
+        "password": this.password
+      });
 
-      var formdata = new FormData();
-      formdata.append("username", "kirua");
-      formdata.append("password", "Kercode4");
-
-      var requestOptions = {
-        method: 'POST',
-        headers: header,
-        body: formdata,
-        redirect: 'follow'
+      var config = {
+        method: 'post',
+        url: 'http://localhost:8081/api/auth',
+        headers: { 
+          'Content-Type': 'application/json'
+        },
+        data : data
       };
 
-      fetch("http://localhost:8081/api/login?", requestOptions)
-        .then(response => response.json())
-        .then(result => this.manageResponseLogin(result))
-        .catch(error => console.log('error', error));
+      this.axios(config).then(response => {
+        console.log(response);
+        this.manageResponseLogin(response.headers.authorization);
+      }).catch(error => {
+        console.log(error);
+      });
     },
-
-
-
-
-
-
-
-
-    manageResponseLogin(response) {
-      console.log(response);
-
-      // var header = new Headers();
-      // header.append("Cookie", "JSESSIONID=" + response.session_id);
-
+    manageResponseLogin(token) {
+      console.log(token);
       var config = {
         method: 'get',
         url: 'http://localhost:8081/api/user/current-user',
         headers: { 
-          'Cookie': "JSESSIONID=5105E067238ECC9B41A3533150CB2088"
+          'Authorization': 'Bearer ' + token
         }
       };
 
-      this.axios(config).then(function (response) {
-        console.log(response);
-      }).catch(function (error) {
+      this.axios(config).then(response => {
+        this.saveUserLog(response.data);
+      }).catch(error => {
         console.log(error);
       });
+    },
+    saveUserLog(data) {
+      console.log(data);
+      this.$store.commit("currentUser", data);
+      console.log(this.$store.state.currentUser);
     }
   },
 }

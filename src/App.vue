@@ -1,38 +1,47 @@
 <template>
   <Header/>
-  <router-view v-if="pictures.length != 0" :pictures="pictures" :picture="pictureSelected" v-on:selectPicture="pictureSelect"></router-view>
+  <router-view 
+    v-if="pictures.length != 0" 
+    :pictures="pictures" 
+    :picture="pictureSelected" 
+    v-on:selectPicture="pictureSelect"
+  ></router-view>
 </template>
 
 <script>
-import Header from './components/HeaderEmpty.vue';
-// import Galery from './components/Galery.vue';
+import Header from './components/Header.vue';
 
 import axios from 'axios';
 
 export default {
   name: 'App',
   components: {
-    Header,
-    // Galery
+    Header
   },
   data() {
     return {
       axios: axios,
       pictures: [],
-      pictureSelected: null
+      pictureSelected: null,
+      data: {
+        "username": "plop",
+        "password": "plop-man"
+      }
     }
   },
   mounted() {
     this.getPictures();
+    // save data in store
+    // this.$store.commit("currentUser", this.data);
+    // get data in storre
+    // console.log(this.$store.state);
   },
   methods: {
     getPictures() {
       this.axios.get("https://fast-peak-47997.herokuapp.com/api/picture").then(response => this.managePicture(response.data));
     },
     managePicture(data) {
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].copyright != "video") this.pictures.push(data[i]);
-      }
+      this.pictures = data;
     },
     pictureSelect(value) {
       this.pictureSelected = value;
