@@ -2,7 +2,7 @@
   <div class="scene">
     <div class="carousel">
       <div class="carousel-cell" v-for="(picture, selectedIndex) in pictures" :key="selectedIndex">
-        <img class="cell-image" :src="picture.url"/>
+        <img class="cell-image" :src="picture.url" v-on:click="selectPicture()"/>
       </div>
     </div>
   </div>
@@ -40,8 +40,7 @@ export default {
       isHorizontal: true,
       rotateFn: null,
       radius: null,
-      theta: null,
-      rotateCount: 0
+      theta: null
     }
   },
   props: {
@@ -54,7 +53,6 @@ export default {
     this.currentPictures = this.pictures;
   },
   mounted() {
-    console.log(this.pictures);
     this.initGalery();
   },
   methods: {
@@ -73,10 +71,6 @@ export default {
       }
       let angle = this.theta * this.selectedIndex * -1;
       this.carousel.style.transform = 'translateZ(' + -this.radius + 'px) ' + this.rotateFn + '(' + angle + 'deg)';
-      
-      // this.rotateCount++;
-      console.log(this.currentPictures);
-      console.log(this.selectedIndex);
     },
     changeCarousel() {
       this.theta = 360 / this.cellCount;
@@ -110,6 +104,9 @@ export default {
     previousPicture() {
       this.selectedIndex--;
       this.rotateCarousel();
+    },
+    selectPicture() {
+      this.$emit("selectPicture", this.currentPictures[this.selectedIndex]);
     }
   },
 }

@@ -1,6 +1,6 @@
 <template>
   <Header/>
-  <router-view v-if="pictures.length != 0" :pictures="pictures"></router-view>
+  <router-view v-if="pictures.length != 0" :pictures="pictures" :picture="pictureSelected" v-on:selectPicture="pictureSelect"></router-view>
 </template>
 
 <script>
@@ -18,7 +18,8 @@ export default {
   data() {
     return {
       axios: axios,
-      pictures: []
+      pictures: [],
+      pictureSelected: null
     }
   },
   mounted() {
@@ -33,6 +34,11 @@ export default {
         if (data[i].copyright != "video") this.pictures.push(data[i]);
       }
     },
+    pictureSelect(value) {
+      this.pictureSelected = value;
+      console.log(this.pictureSelected);
+      this.$router.push({ name: "picture" });
+    } 
   },
 }
 </script>
