@@ -1,19 +1,22 @@
 <template>
   <Header/>
-  <router-view v-if="pictures.length != 0" :pictures="pictures" :picture="pictureSelected" v-on:selectPicture="pictureSelect"></router-view>
+  <router-view 
+    v-if="pictures.length != 0" 
+    :pictures="pictures" 
+    :picture="pictureSelected" 
+    v-on:selectPicture="pictureSelect"
+  ></router-view>
 </template>
 
 <script>
 import Header from './components/Header.vue';
-// import Galery from './components/Galery.vue';
 
 import axios from 'axios';
 
 export default {
   name: 'App',
   components: {
-    Header,
-    // Galery
+    Header
   },
   data() {
     return {
@@ -30,9 +33,7 @@ export default {
       this.axios.get("https://fast-peak-47997.herokuapp.com/api/picture").then(response => this.managePicture(response.data));
     },
     managePicture(data) {
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].copyright != "video") this.pictures.push(data[i]);
-      }
+      this.pictures = data;
     },
     pictureSelect(value) {
       this.pictureSelected = value;

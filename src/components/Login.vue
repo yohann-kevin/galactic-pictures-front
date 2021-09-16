@@ -31,8 +31,8 @@ export default {
     },
     userLogin() {
       var data = JSON.stringify({
-        "login": "kirua",
-        "password": "Kercode4"
+        "login": this.login,
+        "password": this.password
       });
 
       var config = {
@@ -40,7 +40,6 @@ export default {
         url: 'http://localhost:8081/api/auth',
         headers: { 
           'Content-Type': 'application/json'
-          // 'Cookie': 'JSESSIONID=9FA53451EF709C31F03BFDC1DEB54C3E; XSRF-TOKEN=c8c9d594-ab71-4623-8366-e30e6dd0bf2c'
         },
         data : data
       };
