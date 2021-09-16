@@ -30,25 +30,8 @@ export default {
       this.userLogin();
     },
     userLogin() {
-      // let FormData = require('form-data');
-      // let data = new FormData();
-      // data.append('username', this.login);
-      // data.append('password', this.password);
-
-      // let config = {
-      //   method: 'post',
-      //   url: 'https://fast-peak-47997.herokuapp.com/api/login?',
-      //   data : data
-      // };
-
-      // this.axios(config).then((response) => {
-      //   console.log(JSON.stringify(response.data));
-      // }).catch((error) => {
-      //   console.log(error);
-      // });
-
-      var myHeaders = new Headers();
-      myHeaders.append("Cookie", "JSESSIONID=5105E067238ECC9B41A3533150CB2088");
+      var header = new Headers();
+      header.append("Cookie", "JSESSIONID=5105E067238ECC9B41A3533150CB2088");
 
       var formdata = new FormData();
       formdata.append("username", "kirua");
@@ -56,15 +39,43 @@ export default {
 
       var requestOptions = {
         method: 'POST',
-        headers: myHeaders,
+        headers: header,
         body: formdata,
         redirect: 'follow'
       };
 
       fetch("http://localhost:8081/api/login?", requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
+        .then(response => response.json())
+        .then(result => this.manageResponseLogin(result))
         .catch(error => console.log('error', error));
+    },
+
+
+
+
+
+
+
+
+    manageResponseLogin(response) {
+      console.log(response);
+
+      // var header = new Headers();
+      // header.append("Cookie", "JSESSIONID=" + response.session_id);
+
+      var config = {
+        method: 'get',
+        url: 'http://localhost:8081/api/user/current-user',
+        headers: { 
+          'Cookie': "JSESSIONID=5105E067238ECC9B41A3533150CB2088"
+        }
+      };
+
+      this.axios(config).then(function (response) {
+        console.log(response);
+      }).catch(function (error) {
+        console.log(error);
+      });
     }
   },
 }
