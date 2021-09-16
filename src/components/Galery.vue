@@ -9,17 +9,17 @@
 
   <div class="carousel-options">
     <div>
-      <button class="previous-button">Previous</button>
-      <button class="next-button">Next</button>
+      <button class="previous-button" v-on:click="previousPicture()" >Previous</button>
+      <button class="next-button" v-on:click="nextPicture()" >Next</button>
     </div>
     <div>
       Orientation:
       <label>
-        <input type="radio" name="orientation" value="horizontal" checked />
+        <input type="radio" name="orientation" value="horizontal" checked v-on:click="onOrientationChange()" />
         horizontal
       </label>
       <label>
-        <input type="radio" name="orientation" value="vertical" />
+        <input type="radio" name="orientation" value="vertical" v-on:click="onOrientationChange()" />
         vertical
       </label>
     </div>
@@ -30,7 +30,17 @@
 export default {
   data() {
     return {
-      currentPictures: null
+      currentPictures: null,
+      carousel: null,
+      cells: null,
+      cellCount: 10,
+      selectedIndex: 0,
+      cellWidth: null,
+      cellHeight: null,
+      isHorizontal: true,
+      rotateFn: null,
+      radius: null,
+      theta: null
     }
   },
   props: {
@@ -48,70 +58,51 @@ export default {
   },
   methods: {
     initGalery() {
-      var carousel = document.querySelector('.carousel');
-      var cells = carousel.querySelectorAll('.carousel-cell');
-      var cellCount = 10;
-      var selectedIndex = 0;
-      var cellWidth = carousel.offsetWidth;
-      var cellHeight = carousel.offsetHeight;
-      var isHorizontal = true;
-      var rotateFn = isHorizontal ? 'rotateY' : 'rotateX';
-      var radius, theta;
+      this.carousel = document.querySelector('.carousel');
+      this.cells = this.carousel.querySelectorAll('.carousel-cell');
+      this.cellWidth = this.carousel.offsetWidth;
+      this.cellHeight = this.carousel.offsetHeight;
+      this.rotateFn = this.isHorizontal ? 'rotateY' : 'rotateX';
 
-      function rotateCarousel() {
-        // if (rotateCount != 0) this.currentPictures.push(this.currentPictures.shift());
-        var angle = theta * selectedIndex * -1;
-        carousel.style.transform = 'translateZ(' + -radius + 'px) ' + rotateFn + '(' + angle + 'deg)';
-      }
-
-      var prevButton = document.querySelector('.previous-button');
-      prevButton.addEventListener( 'click', function() {
-        selectedIndex--;
-        rotateCarousel();
-      });
-
-      var nextButton = document.querySelector('.next-button');
-      nextButton.addEventListener( 'click', function() {
-        selectedIndex++;
-        rotateCarousel();
-      });
-
-      function changeCarousel() {
-        theta = 360 / cellCount;
-        var cellSize = isHorizontal ? cellWidth : cellHeight;
-        radius = Math.round( ( cellSize / 2) / Math.tan( Math.PI / cellCount ) );
-        for ( var i=0; i < cells.length; i++ ) {
-          var cell = cells[i];
-          if ( i < cellCount ) {
-            cell.style.opacity = 1;
-            var cellAngle = theta * i;
-            cell.style.transform = rotateFn + '(' + cellAngle + 'deg) translateZ(' + radius + 'px)';
-          } else {
-            cell.style.opacity = 0;
-            cell.style.transform = 'none';
-          }
+      this.onOrientationChange();
+    },
+    rotateCarousel() {
+      // if (rotateCount != 0) this.currentPictures.push(this.currentPictures.shift());
+      let angle = this.theta * this.selectedIndex * -1;
+      this.carousel.style.transform = 'translateZ(' + -this.radius + 'px) ' + this.rotateFn + '(' + angle + 'deg)';
+    },
+    changeCarousel() {
+      this.theta = 360 / this.cellCount;
+      let cellSize = this.isHorizontal ? this.cellWidth : this.cellHeight;
+      this.radius = Math.round( ( cellSize / 2) / Math.tan( Math.PI / this.cellCount ) );
+      for ( let i = 0; i < this.cells.length; i++ ) {
+        let cell = this.cells[i];
+        if ( i < this.cellCount ) {
+          cell.style.opacity = 1;
+          let cellAngle = this.theta * i;
+          cell.style.transform = this.rotateFn + '(' + cellAngle + 'deg) translateZ(' + this.radius + 'px)';
+        } else {
+          cell.style.opacity = 0;
+          cell.style.transform = 'none';
         }
-
-        rotateCarousel();
       }
 
-      var orientationRadios = document.querySelectorAll('input[name="orientation"]');
-      ( function() {
-        for ( var i=0; i < orientationRadios.length; i++ ) {
-          var radio = orientationRadios[i];
-          radio.addEventListener( 'change', onOrientationChange );
-        }
-      })();
-
-      function onOrientationChange() {
-        var checkedRadio = document.querySelector('input[name="orientation"]:checked');
-        isHorizontal = checkedRadio.value == 'horizontal';
-        rotateFn = isHorizontal ? 'rotateY' : 'rotateX';
-        document.getElementsByClassName("scene")[0].style.marginTop = isHorizontal ? '70px' : '300px' ;
-        changeCarousel();
-      }
-
-      onOrientationChange();
+      this.rotateCarousel();
+    },
+    onOrientationChange() {
+      let checkedRadio = document.querySelector('input[name="orientation"]:checked');
+      this.isHorizontal = checkedRadio.value == 'horizontal';
+      this.rotateFn = this.isHorizontal ? 'rotateY' : 'rotateX';
+      document.getElementsByClassName("scene")[0].style.marginTop = this.isHorizontal ? '70px' : '300px' ;
+      this.changeCarousel();
+    },
+    nextPicture() {
+      this.selectedIndex++;
+      this.rotateCarousel();
+    },
+    previousPicture() {
+      this.selectedIndex--;
+      this.rotateCarousel();
     }
   },
 }
