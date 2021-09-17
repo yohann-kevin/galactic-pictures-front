@@ -73,7 +73,7 @@ export default {
     },
     sendComment() {
       this.checkComment();
-      var config = {
+      let config = {
         method: 'post',
         url: process.env.VUE_APP_API_LINK + 'comment?content=' + this.userComment + '&uuid=' + this.picture.id,
         headers: { 

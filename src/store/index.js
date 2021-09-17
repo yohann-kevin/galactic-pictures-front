@@ -3,9 +3,10 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     userIsConnected: false,
-    currentUser: {},
+    currentUser: null,
     userIsAdmin: false,
-    userToken: null
+    userToken: null,
+    userComment: null
   },
   mutations: {
     currentUser: (state, user) => {
@@ -17,6 +18,9 @@ export default createStore({
     },
     userToken(state, token) {
       state.userToken = token;
+    },
+    userComment(state, comments) {
+      state.userComment = comments;
     }
   },
   actions: {
