@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     getPictures() {
-      this.axios.get("http://localhost:8081/api/picture").then(response => this.managePicture(response.data));
+      this.axios.get(process.env.VUE_APP_API_LINK + "picture").then(response => this.managePicture(response.data));
     },
     managePicture(data) {
       this.pictures = data;

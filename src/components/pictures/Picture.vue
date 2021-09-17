@@ -46,7 +46,7 @@ export default {
     findPictureComment() {
       let config = {
         method: 'get',
-        url: 'http://localhost:8081/api/comment/' + this.image.id,
+        url: process.env.VUE_APP_API_LINK + 'comment/' + this.image.id,
         headers: { 
           'Authorization': 'Bearer ' + this.$store.state.userToken
         }

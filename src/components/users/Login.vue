@@ -37,7 +37,7 @@ export default {
 
       var config = {
         method: 'post',
-        url: 'http://localhost:8081/api/auth',
+        url:  process.env.VUE_APP_API_LINK +'auth',
         headers: { 
           'Content-Type': 'application/json'
         },
@@ -53,7 +53,7 @@ export default {
     manageResponseLogin(token) {
       var config = {
         method: 'get',
-        url: 'http://localhost:8081/api/user/current-user',
+        url: process.env.VUE_APP_API_LINK + 'user/current-user',
         headers: { 
           'Authorization': 'Bearer ' + token
         }
