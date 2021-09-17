@@ -24,10 +24,6 @@ export default {
       axios: axios,
       pictures: [],
       pictureSelected: null,
-      data: {
-        "username": "plop",
-        "password": "plop-man"
-      },
       isConnected: false
     }
   },

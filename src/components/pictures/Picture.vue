@@ -7,9 +7,12 @@
       <p>release date : <span>{{ this.formatDate(image.date) }}</span></p>
       <p>{{ image.description }}</p>
     </div>
-    <div class="single-picture-comment" v-if="this.isConnected">
+    <div class="single-picture-comments" v-if="this.isConnected">
       <h2>Comment : </h2>
-      <!-- space comment here, display if user connected -->
+      <div class="single-picture-comment" v-for="(comment, i) in comments" :key="i">
+        <p class="comment-author">Author : {{ comment.user_writer }}</p>
+        <p class="comment-content" >{{ comment.content }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -25,7 +28,8 @@ export default {
       image: null,
       isConnected: false,
       moment: moment,
-      axios: axios
+      axios: axios,
+      comments: null
     }
   },
   props: {
@@ -53,10 +57,13 @@ export default {
       };
 
       this.axios(config).then(response => {
-        console.log(response.data);
+        this.manageCommentData(response.data);
       }).catch(error => {
         console.log(error);
       });
+    },
+    manageCommentData(data) {
+      this.comments = data;
     }
   },
 }
@@ -74,11 +81,37 @@ export default {
   width: 80%;
 }
 
-.single-picture-comment {
+.single-picture-comments {
   width: 80%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-.single-picture-comment h2 {
+.single-picture-comments h2 {
+  width: 100%;
   text-align: left;
+}
+
+.single-picture-comment {
+  width: 100%;
+  background-color: #efefef;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.comment-author {
+  width: 10%;
+  text-align: left;
+  margin-left: 15px;
+}
+
+.comment-content {
+  width: 85%;
+  text-align: center;
 }
 </style>
