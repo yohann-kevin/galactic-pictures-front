@@ -46,7 +46,6 @@ export default {
     },
     pictureSelect(value) {
       this.pictureSelected = value;
-      console.log(this.pictureSelected);
       this.$router.push({ name: "picture" });
     },
     findCurrentUser() {

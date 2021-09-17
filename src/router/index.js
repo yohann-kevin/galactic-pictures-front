@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Galery from '../components/Galery.vue';
-import Picture from '../components/Picture.vue';
-import Register from '../components/Register.vue';
-import Login from '../components/Login.vue';
-import Dashboard from '../components/Dashboard.vue';
+import Galery from '../components/pictures/Galery.vue';
+import Picture from '../components/pictures/Picture.vue';
+import Register from '../components/users/Register.vue';
+import Login from '../components/users/Login.vue';
+import Dashboard from '../components/users/Dashboard.vue';
 
 const routes = [
   {

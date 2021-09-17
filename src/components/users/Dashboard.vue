@@ -22,7 +22,6 @@ export default {
   },
   beforeMount() {
     this.userInfo = this.currentUser;
-    console.log(this.userInfo);
   }
 }
 </script>

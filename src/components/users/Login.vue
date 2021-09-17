@@ -45,14 +45,12 @@ export default {
       };
 
       this.axios(config).then(response => {
-        console.log(response);
         this.manageResponseLogin(response.headers.authorization);
       }).catch(error => {
         console.log(error);
       });
     },
     manageResponseLogin(token) {
-      console.log(token);
       var config = {
         method: 'get',
         url: 'http://localhost:8081/api/user/current-user',
@@ -68,10 +66,8 @@ export default {
       });
     },
     saveUserLog(data) {
-      console.log(data);
       this.$store.commit("currentUser", data);
       if (data.role == "ADMIN") this.$store.commit("userIsAdmin", true);
-      console.log(this.$store.state);
       this.$router.push({ name: "dashboard" });
     }
   },
