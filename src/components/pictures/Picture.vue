@@ -13,6 +13,11 @@
         <p class="comment-author">Author : {{ comment.user_writer }}</p>
         <p class="comment-content" >{{ comment.content }}</p>
       </div>
+      <div class="comment-add">
+        <label for="comment">Your comment : </label>
+        <textarea type="text" name="comment" ref="comment"></textarea>
+        <button type="submit" v-on:click="sendComment()">Send</button>
+      </div>
     </div>
   </div>
 </template>
@@ -29,7 +34,8 @@ export default {
       isConnected: false,
       moment: moment,
       axios: axios,
-      comments: null
+      comments: null,
+      userComment: null
     }
   },
   props: {
@@ -64,6 +70,27 @@ export default {
     },
     manageCommentData(data) {
       this.comments = data;
+    },
+    sendComment() {
+      this.checkComment();
+      var config = {
+        method: 'post',
+        url: process.env.VUE_APP_API_LINK + 'comment?content=' + this.userComment + '&uuid=' + this.picture.id,
+        headers: { 
+          'Authorization': 'Bearer ' + this.$store.state.userToken
+        }
+      };
+
+      this.axios(config).then(response => {
+        if (response.status == 201) this.findPictureComment();
+      }).catch(error => {
+        console.log(error);
+      });
+
+      this.$refs.comment.value = "";
+    },
+    checkComment() {
+      this.userComment = this.$refs.comment.value;
     }
   },
 }
@@ -113,5 +140,40 @@ export default {
 .comment-content {
   width: 85%;
   text-align: center;
+}
+
+.comment-add {
+  width: 100%;
+  background-color: #efefef;
+  border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.comment-add label {
+  width: 20%;
+  text-align: left;
+  margin-left: 15px;
+  margin-top: 30px;
+  align-items: center;
+}
+
+.comment-add textarea {
+  outline: none;
+  border-radius: 5px;
+  width: 60%;
+  border: 1px solid #000;
+  margin: 15px;
+  height: 40px;
+}
+
+.comment-add button {
+  width: 10%;
+  margin-right: 15px;
+  margin-top: 30px;
+  height: 20px;
 }
 </style>
