@@ -16,6 +16,7 @@
 
 <script>
 import moment from "moment";
+import axios from "axios";
 
 export default {
   data() {
@@ -23,7 +24,8 @@ export default {
       type: Object,
       image: null,
       isConnected: false,
-      moment: moment
+      moment: moment,
+      axios: axios
     }
   },
   props: {
@@ -42,7 +44,19 @@ export default {
       return this.moment(date).format("LL");
     },
     findPictureComment() {
-      console.log(this.$store.state.userToken);
+      let config = {
+        method: 'get',
+        url: 'http://localhost:8081/api/comment/' + this.image.id,
+        headers: { 
+          'Authorization': 'Bearer ' + this.$store.state.userToken
+        }
+      };
+
+      this.axios(config).then(response => {
+        console.log(response.data);
+      }).catch(error => {
+        console.log(error);
+      });
     }
   },
 }
