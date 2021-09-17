@@ -60,13 +60,14 @@ export default {
       };
 
       this.axios(config).then(response => {
-        this.saveUserLog(response.data);
+        this.saveUserLog(response.data, token);
       }).catch(error => {
         console.log(error);
       });
     },
-    saveUserLog(data) {
+    saveUserLog(data, token) {
       this.$store.commit("currentUser", data);
+      this.$store.commit("userToken", token);
       if (data.role == "ADMIN") this.$store.commit("userIsAdmin", true);
       this.$router.push({ name: "dashboard" });
     }

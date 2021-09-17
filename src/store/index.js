@@ -4,7 +4,8 @@ export default createStore({
   state: {
     userIsConnected: false,
     currentUser: {},
-    userIsAdmin: false
+    userIsAdmin: false,
+    userToken: null
   },
   mutations: {
     currentUser: (state, user) => {
@@ -13,6 +14,9 @@ export default createStore({
     },
     userIsAdmin(state, isAdmin) {
       state.userIsAdmin = isAdmin;
+    },
+    userToken(state, token) {
+      state.userToken = token;
     }
   },
   actions: {

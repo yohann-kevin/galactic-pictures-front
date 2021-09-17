@@ -35,10 +35,14 @@ export default {
     this.image = this.picture;
     console.log(this.image);
     this.isConnected = this.$store.state.userIsConnected;
+    if (this.isConnected) this.findPictureComment();
   },
   methods: {
     formatDate(date) {
       return this.moment(date).format("LL");
+    },
+    findPictureComment() {
+      console.log(this.$store.state.userToken);
     }
   },
 }
