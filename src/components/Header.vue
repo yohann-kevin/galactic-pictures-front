@@ -12,16 +12,38 @@
           <li><a href="#">Plop</a></li>
         </ul>
       </nav>
-      <div class="header-button">
+      <div class="header-button" v-if="!this.isConnected">
         <button><router-link to="/login">Login</router-link></button>
         <button><router-link to="/sign-up">Sign in</router-link></button>
+      </div>
+      <div class="header-button" v-else>
+        <button><router-link to="/dashboard">Dashboard</router-link></button>
+        <button><router-link to="/">Logout</router-link></button>
       </div>
   </header>
 </template>
 
 <script>
 export default {
-
+  data() {
+    return {
+      isConnected: null
+    }
+  },
+  props: {
+    userConnected: {
+      type: Boolean,
+      required: true
+    }
+  },
+  mounted() {
+    this.isConnected = this.userConnected;
+  },
+  watch: {
+    userConnected: function() {
+      this.isConnected = this.userConnected;
+    }
+  }
 }
 </script>
 

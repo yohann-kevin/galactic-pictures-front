@@ -1,5 +1,5 @@
 <template>
-  <Header/>
+  <Header :userConnected="this.isConnected"/>
   <router-view 
     v-if="pictures.length != 0" 
     :pictures="pictures" 
@@ -27,7 +27,8 @@ export default {
       data: {
         "username": "plop",
         "password": "plop-man"
-      }
+      },
+      isConnected: false
     }
   },
   mounted() {
@@ -36,6 +37,9 @@ export default {
     // this.$store.commit("currentUser", this.data);
     // get data in storre
     // console.log(this.$store.state);
+  },
+  updated() {
+    this.isConnected = this.$store.state.userIsConnected;
   },
   methods: {
     getPictures() {
