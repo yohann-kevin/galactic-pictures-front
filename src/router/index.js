@@ -3,6 +3,7 @@ import Galery from '../components/Galery.vue';
 import Picture from '../components/Picture.vue';
 import Register from '../components/Register.vue';
 import Login from '../components/Login.vue';
+import Dashboard from '../components/Dashboard.vue';
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login
+  }, 
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    component: Dashboard
   }
 ];
 

@@ -5,6 +5,7 @@
     :pictures="pictures" 
     :picture="pictureSelected" 
     v-on:selectPicture="pictureSelect"
+    :currentUser="findCurrentUser()"
   ></router-view>
 </template>
 
@@ -47,7 +48,10 @@ export default {
       this.pictureSelected = value;
       console.log(this.pictureSelected);
       this.$router.push({ name: "picture" });
-    } 
+    },
+    findCurrentUser() {
+      return this.$store.state.currentUser;
+    }
   },
 }
 </script>

@@ -2,11 +2,17 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    currentUser: {}
+    userIsConnected: false,
+    currentUser: {},
+    userIsAdmin: false
   },
   mutations: {
     currentUser: (state, user) => {
       state.currentUser = user;
+      state.userIsConnected = true;
+    },
+    userIsAdmin(state, isAdmin) {
+      state.userIsAdmin = isAdmin;
     }
   },
   actions: {

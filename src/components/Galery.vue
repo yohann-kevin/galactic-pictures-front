@@ -46,7 +46,7 @@ export default {
   props: {
     pictures: {
       type: Array,
-      require: true
+      required: true
     }
   },
   created() {

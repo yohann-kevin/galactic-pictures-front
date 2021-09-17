@@ -16,7 +16,7 @@ export default {
   },
   props: {
     picture: {
-      require: true
+      required: true
     }
   },
   beforeMount() {

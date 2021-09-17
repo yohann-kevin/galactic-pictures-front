@@ -70,7 +70,9 @@ export default {
     saveUserLog(data) {
       console.log(data);
       this.$store.commit("currentUser", data);
-      console.log(this.$store.state.currentUser);
+      if (data.role == "ADMIN") this.$store.commit("userIsAdmin", true);
+      console.log(this.$store.state);
+      this.$router.push({ name: "dashboard" });
     }
   },
 }
