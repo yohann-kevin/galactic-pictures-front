@@ -5,6 +5,8 @@ import Register from '../components/users/Register.vue';
 import Login from '../components/users/Login.vue';
 import Dashboard from '../components/users/Dashboard.vue';
 
+import store from '../store/index';
+
 const routes = [
   {
     path: '/',
@@ -29,7 +31,11 @@ const routes = [
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: Dashboard
+    component: Dashboard,
+    beforeEnter: (to, from, next) => {
+      if (store.state.userIsConnected) next();
+      else next({path: "/login"})
+    }
   }
 ];
 

@@ -29,10 +29,6 @@ export default {
   },
   mounted() {
     this.getPictures();
-    // save data in store
-    // this.$store.commit("currentUser", this.data);
-    // get data in storre
-    // console.log(this.$store.state);
   },
   updated() {
     this.isConnected = this.$store.state.userIsConnected;
