@@ -6,7 +6,7 @@
       <div class="picture-icon" v-if="this.isConnected">
         <i class="fas fa-star" v-on:click="unlikePicture()" v-if="isLiked"></i>
         <i class="far fa-star" v-on:click="likePicture()" v-else></i><p> {{ image.toLike }}</p>
-        <i class="fas fa-download"></i><p> {{ image.download }}</p>
+        <i class="fas fa-download" v-on:click="downloadPicture()"></i><p> {{ image.download }}</p>
       </div>
       <p>Copyright : <span>{{ image.copyright }}</span></p>
       <p>release date : <span>{{ this.formatDate(image.date) }}</span></p>
@@ -30,6 +30,7 @@
 <script>
 import moment from "moment";
 import axios from "axios";
+import Downloader from '../../assets/script/Downloader.js';
 
 export default {
   data() {
@@ -42,7 +43,8 @@ export default {
       comments: null,
       userComment: null,
       isLiked: false,
-      favoriteId: null
+      favoriteId: null,
+      downloader: new Downloader
     }
   },
   props: {
@@ -165,6 +167,9 @@ export default {
       }).catch(error => {
         console.log(error);
       });
+    },
+    downloadPicture() {
+      this.downloader.download_file(this.image.hdurl, this.image.title);
     }
   }
 }
