@@ -9,7 +9,7 @@
           <li><router-link to="/">Galery</router-link></li>
           <li><a href="#">Plop</a></li>
           <li><a href="#">Plop</a></li>
-          <li><a href="#">Plop</a></li>
+          <li v-if="this.isConnected"><router-link to="/favorite">Favorite Picture</router-link></li>
         </ul>
       </nav>
       <div class="header-button" v-if="!this.isConnected">
@@ -78,8 +78,8 @@ export default {
 }
 
 .header-nav > ul > li {
-  border-right: 2px solid gray;
-  border-left: 2px solid gray;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
   margin-top: 30px;
   font-size: 1.4rem;
   padding-right: 25px;
