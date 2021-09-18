@@ -3,6 +3,10 @@
     <div class="single-picture-content">
       <h1>{{ image.title }}</h1>
       <img :src="image.url" />
+      <div class="picture-icon" v-if="this.isConnected">
+        <i class="far fa-star"></i><p> {{ image.toLike }}</p>
+        <i class="fas fa-download"></i><p> {{ image.download }}</p>
+      </div>
       <p>Copyright : <span>{{ image.copyright }}</span></p>
       <p>release date : <span>{{ this.formatDate(image.date) }}</span></p>
       <p>{{ image.description }}</p>
@@ -106,6 +110,30 @@ export default {
 
 .single-picture-content {
   width: 80%;
+}
+
+.picture-icon {
+  width: 100%;
+  margin: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.picture-icon i {
+  margin: 10px;
+  font-size: 1.5rem;
+  transition: 0.5s;
+}
+
+.picture-icon p {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.picture-icon i:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 
 .single-picture-comments {
