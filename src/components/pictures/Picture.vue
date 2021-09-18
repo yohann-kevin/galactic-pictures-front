@@ -4,7 +4,7 @@
       <h1>{{ image.title }}</h1>
       <img :src="image.url" />
       <div class="picture-icon" v-if="this.isConnected">
-        <i class="far fa-star"></i><p> {{ image.toLike }}</p>
+        <i class="far fa-star" v-on:click="likePicture()"></i><p> {{ image.toLike }}</p>
         <i class="fas fa-download"></i><p> {{ image.download }}</p>
       </div>
       <p>Copyright : <span>{{ image.copyright }}</span></p>
@@ -95,6 +95,21 @@ export default {
     },
     checkComment() {
       this.userComment = this.$refs.comment.value;
+    },
+    likePicture() {
+      var config = {
+        method: 'post',
+        url: process.env.VUE_APP_API_LINK + 'picture/like/' + this.image.id,
+        headers: { 
+          'Authorization': 'Bearer ' + this.$store.state.userToken
+        }
+      };
+
+      this.axios(config).then(response => {
+        console.log(response);
+      }).catch(error => {
+        console.log(error);
+      });
     }
   },
 }
