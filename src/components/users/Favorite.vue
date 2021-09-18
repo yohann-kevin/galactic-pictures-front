@@ -31,12 +31,17 @@ export default {
       };
 
       this.axios(config).then(response => {
-        this.favoritePictures = response.data;
+        this.manageFavoritePicture(response.data);
       }).catch(error => {
         console.log(error);
       });
+    },
+    manageFavoritePicture(data) {
+      this.$store.commit("favoritePicture", data);
+      this.favoritePictures = this.$store.state.favoritePicture;
     }
-  },
+  }
+  
 }
 </script>
 

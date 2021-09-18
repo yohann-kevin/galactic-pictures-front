@@ -73,7 +73,7 @@ export default {
       this.$store.commit("userToken", token);
       if (data.role == "ADMIN") this.$store.commit("userIsAdmin", true);
       this.$router.push({ name: "dashboard" });
-      console.log(this.$store.state.userToken);
+      // console.log(this.$store.state.userToken);
     }
   },
 }

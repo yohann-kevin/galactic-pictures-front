@@ -54,7 +54,7 @@ export default {
     manageUserCommentData(data) {
       this.userComments = data;
       this.$store.commit("userComment", this.userComments);
-      console.log(this.$store.state.userComment);
+      // console.log(this.$store.state.userComment);
     }
   }
 }

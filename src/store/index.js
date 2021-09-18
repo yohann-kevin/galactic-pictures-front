@@ -6,7 +6,8 @@ export default createStore({
     currentUser: null,
     userIsAdmin: false,
     userToken: null,
-    userComment: null
+    userComment: null,
+    favoritePicture: null
   },
   mutations: {
     currentUser: (state, user) => {
@@ -23,6 +24,9 @@ export default createStore({
     },
     userComment(state, comments) {
       state.userComment = comments;
+    },
+    favoritePicture(state, pictures) {
+      state.favoritePicture = pictures;
     }
   },
   actions: {

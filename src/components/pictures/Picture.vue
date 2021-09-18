@@ -4,7 +4,7 @@
       <h1>{{ image.title }}</h1>
       <img :src="image.url" />
       <div class="picture-icon" v-if="this.isConnected">
-        <i class="far fa-star" v-on:click="likePicture()"></i><p> {{ image.toLike }}</p>
+        <i class="fas fa-star" v-if="isLiked"></i><i class="far fa-star" v-on:click="likePicture()" v-else></i><p> {{ image.toLike }}</p>
         <i class="fas fa-download"></i><p> {{ image.download }}</p>
       </div>
       <p>Copyright : <span>{{ image.copyright }}</span></p>
@@ -39,7 +39,8 @@ export default {
       moment: moment,
       axios: axios,
       comments: null,
-      userComment: null
+      userComment: null,
+      isLiked: false
     }
   },
   props: {
@@ -51,7 +52,10 @@ export default {
     this.image = this.picture;
     console.log(this.image);
     this.isConnected = this.$store.state.userIsConnected;
-    if (this.isConnected) this.findPictureComment();
+    if (this.isConnected) {
+      this.findPictureComment();
+      this.pictureIsLiked();
+    }
   },
   methods: {
     formatDate(date) {
@@ -106,12 +110,37 @@ export default {
       };
 
       this.axios(config).then(response => {
-        console.log(response);
+        if (response.status == 201) this.refreshFavoritePicture();
       }).catch(error => {
         console.log(error);
       });
+    },
+    refreshFavoritePicture() {
+      let config = {
+        method: 'get',
+        url: process.env.VUE_APP_API_LINK + 'favorite',
+        headers: { 
+          'Authorization': 'Bearer ' + this.$store.state.userToken, 
+        }
+      };
+
+      this.axios(config).then(response => {
+        this.$store.state.favoritePicture = response.data;
+        if (!this.isLiked) this.isLiked = true;
+        this.image.toLike++;
+      }).catch(error => {
+        console.log(error);
+      });
+    },
+    pictureIsLiked() {
+      let favoritePictures = this.$store.state.favoritePicture;
+      if (favoritePictures != null) {
+        for (let i = 0; i < favoritePictures.length; i++) {
+          if (favoritePictures[i].pictures.id == this.image.id) this.isLiked = true;
+        }
+      }
     }
-  },
+  }
 }
 </script>
 
