@@ -170,6 +170,20 @@ export default {
     },
     downloadPicture() {
       this.downloader.download_file(this.image.hdurl, this.image.title);
+
+      let config = {
+        method: 'post',
+        url: process.env.VUE_APP_API_LINK + 'picture/download/' + this.image.id,
+        headers: { 
+          'Authorization': 'Bearer ' + this.$store.state.userToken
+        }
+      };
+
+      this.axios(config).then(response => {
+        if (response.status == 201) this.image.download++;
+      }).catch(error => {
+        console.log(error);
+      });
     }
   }
 }
