@@ -11,7 +11,9 @@ export default createStore({
   mutations: {
     currentUser: (state, user) => {
       state.currentUser = user;
-      state.userIsConnected = true;
+    },
+    userIsConnected: (state, isConnected) => {
+      state.userIsConnected = isConnected;
     },
     userIsAdmin(state, isAdmin) {
       state.userIsAdmin = isAdmin;

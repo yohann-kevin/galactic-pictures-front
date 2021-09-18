@@ -69,6 +69,7 @@ export default {
     },
     saveUserLog(data, token) {
       this.$store.commit("currentUser", data);
+      this.$store.commit("userIsConnected", true);
       this.$store.commit("userToken", token);
       if (data.role == "ADMIN") this.$store.commit("userIsAdmin", true);
       this.$router.push({ name: "dashboard" });

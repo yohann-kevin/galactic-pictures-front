@@ -18,7 +18,7 @@
       </div>
       <div class="header-button" v-else>
         <button><router-link to="/dashboard">Dashboard</router-link></button>
-        <button><router-link to="/">Logout</router-link></button>
+        <button><router-link to="/" v-on:click="logoutUser()">Logout</router-link></button>
       </div>
   </header>
 </template>
@@ -43,7 +43,15 @@ export default {
     userConnected: function() {
       this.isConnected = this.userConnected;
     }
-  }
+  },
+  methods: {
+    logoutUser() {
+      this.$store.commit("currentUser", null);
+      this.$store.commit("userIsConnected", false);
+      this.$store.commit("userIsAdmin", false);
+      this.$store.commit("userToken", false);
+    }
+  },
 }
 </script>
 
