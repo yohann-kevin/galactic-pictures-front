@@ -4,7 +4,8 @@
       <h1>{{ image.title }}</h1>
       <img :src="image.url" />
       <div class="picture-icon" v-if="this.isConnected">
-        <i class="fas fa-star" v-if="isLiked"></i><i class="far fa-star" v-on:click="likePicture()" v-else></i><p> {{ image.toLike }}</p>
+        <i class="fas fa-star" v-on:click="unlikePicture()" v-if="isLiked"></i>
+        <i class="far fa-star" v-on:click="likePicture()" v-else></i><p> {{ image.toLike }}</p>
         <i class="fas fa-download"></i><p> {{ image.download }}</p>
       </div>
       <p>Copyright : <span>{{ image.copyright }}</span></p>
@@ -40,7 +41,8 @@ export default {
       axios: axios,
       comments: null,
       userComment: null,
-      isLiked: false
+      isLiked: false,
+      favoriteId: null
     }
   },
   props: {
@@ -126,8 +128,14 @@ export default {
 
       this.axios(config).then(response => {
         this.$store.state.favoritePicture = response.data;
-        if (!this.isLiked) this.isLiked = true;
-        this.image.toLike++;
+        if (!this.isLiked) { 
+          this.isLiked = true;
+          this.image.toLike++;
+        } else {
+          this.isLiked = false;
+          this.image.toLike--;
+        }
+        
       }).catch(error => {
         console.log(error);
       });
@@ -136,9 +144,27 @@ export default {
       let favoritePictures = this.$store.state.favoritePicture;
       if (favoritePictures != null) {
         for (let i = 0; i < favoritePictures.length; i++) {
-          if (favoritePictures[i].pictures.id == this.image.id) this.isLiked = true;
+          if (favoritePictures[i].pictures.id == this.image.id) {
+            this.isLiked = true;
+            this.favoriteId = favoritePictures[i].id;
+          }
         }
       }
+    },
+    unlikePicture() {
+      var config = {
+        method: 'delete',
+        url: process.env.VUE_APP_API_LINK + 'favorite?pictureId=' + this.image.id + '&id=' + this.favoriteId,
+        headers: {
+          'Authorization': 'Bearer ' + this.$store.state.userToken
+        }
+      };
+
+      this.axios(config).then(response => {
+        if (response.status == 200) this.refreshFavoritePicture();
+      }).catch(error => {
+        console.log(error);
+      });
     }
   }
 }
