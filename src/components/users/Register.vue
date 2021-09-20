@@ -45,12 +45,11 @@ export default {
         data : data
       };
 
-      this.axios(config)
-        .then((response) => {
-          console.log(response);
-        }).catch((error) => {
-          console.log(error);
-        });
+      this.axios(config).then(response => {
+        if (response.status == 200) this.$router.push({ name: "login" });
+      }).catch(error => {
+        console.log(error);
+      });
     }
   },
 }
