@@ -2,7 +2,8 @@
   <div class="scene">
     <div class="carousel">
       <div class="carousel-cell" v-for="(picture, selectedIndex) in pictures" :key="selectedIndex">
-        <img class="cell-image" :src="picture.url" v-on:click="selectPicture()"/>
+        <img class="cell-image" :src="picture.url" v-on:click="selectPicture()" v-if="picture.mediaType != 'video'"/>
+        <img class="cell-image" :src="videoThumbnail(picture.url)" v-on:click="selectPicture()" v-else/>
       </div>
     </div>
   </div>
@@ -107,6 +108,11 @@ export default {
     },
     selectPicture() {
       this.$emit("selectPicture", this.currentPictures[this.selectedIndex]);
+    },
+    videoThumbnail(initialUrl) {
+      let videoId = initialUrl.split("/");
+      videoId = videoId[videoId.length - 1].split("?")[0];
+      return "https://i1.ytimg.com/vi/" + videoId + "/default.jpg";
     }
   },
 }

@@ -2,7 +2,8 @@
   <div class="single-picture">
     <div class="single-picture-content">
       <h1>{{ image.title }}</h1>
-      <img :src="image.url" />
+      <img :src="image.url" v-if="image.mediaType != 'video'" />
+      <iframe width="100%" height="100%" :src="image.url" v-else></iframe>
       <div class="picture-icon" v-if="this.isConnected">
         <i class="fas fa-star" v-on:click="unlikePicture()" v-if="isLiked"></i>
         <i class="far fa-star" v-on:click="likePicture()" v-else></i><p> {{ image.toLike }}</p>
