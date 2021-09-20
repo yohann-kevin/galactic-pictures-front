@@ -25,10 +25,8 @@ export default {
   },
   methods: {
     getUserLogin() {
-      // this.login = this.$refs.login.value;
-      // this.password = this.$refs.pass.value;
-      this.login = "kirua";
-      this.password = "Kercode4";
+      this.login = this.$refs.login.value;
+      this.password = this.$refs.pass.value;
       this.userLogin();
     },
     userLogin() {
