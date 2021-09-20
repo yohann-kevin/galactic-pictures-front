@@ -38,7 +38,7 @@ export default {
 
       let config = {
         method: 'post',
-        url: 'https://fast-peak-47997.herokuapp.com/api/user/sign-up',
+        url: process.env.VUE_APP_API_LINK + 'user/sign-up',
         headers: { 
           'Content-Type': 'application/json'
         },
@@ -46,7 +46,7 @@ export default {
       };
 
       this.axios(config).then(response => {
-        if (response.status == 200) this.$router.push({ name: "login" });
+        if (response.status == 201) this.$router.push({ name: "login" });
       }).catch(error => {
         console.log(error);
       });
