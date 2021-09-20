@@ -18,30 +18,8 @@ export default {
     }
   },
   beforeMount() {
-    this.findFavoritePicture();
-  },
-  methods: {
-    findFavoritePicture() {
-      let config = {
-        method: 'get',
-        url: process.env.VUE_APP_API_LINK + 'favorite',
-        headers: { 
-          'Authorization': 'Bearer ' + this.$store.state.userToken, 
-        }
-      };
-
-      this.axios(config).then(response => {
-        this.manageFavoritePicture(response.data);
-      }).catch(error => {
-        console.log(error);
-      });
-    },
-    manageFavoritePicture(data) {
-      this.$store.commit("favoritePicture", data);
-      this.favoritePictures = this.$store.state.favoritePicture;
-    }
+    this.favoritePictures = this.$store.state.favoritePicture;
   }
-  
 }
 </script>
 

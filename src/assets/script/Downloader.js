@@ -8,9 +8,9 @@ class Downloader {
   
   toDataURL(url) {
     return fetch(url).then((response) => {
-        return response.blob();
+      return response.blob();
     }).then(blob => {
-        return URL.createObjectURL(blob);
+      return URL.createObjectURL(blob);
     });
   }
 }

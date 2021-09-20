@@ -73,7 +73,28 @@ export default {
       this.$store.commit("userToken", token);
       if (data.role == "ADMIN") this.$store.commit("userIsAdmin", true);
       this.$router.push({ name: "dashboard" });
-      // console.log(this.$store.state.userToken);
+      this.findUserData();
+    },
+    findUserData() {
+      this.findFavoritePicture();
+    },
+    findFavoritePicture() {
+      let config = {
+        method: 'get',
+        url: process.env.VUE_APP_API_LINK + 'favorite',
+        headers: { 
+          'Authorization': 'Bearer ' + this.$store.state.userToken, 
+        }
+      };
+
+      this.axios(config).then(response => {
+        this.manageFavoritePicture(response.data);
+      }).catch(error => {
+        console.log(error);
+      });
+    },
+    manageFavoritePicture(data) {
+      this.$store.commit("favoritePicture", data);
     }
   },
 }

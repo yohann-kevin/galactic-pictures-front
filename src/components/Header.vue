@@ -50,6 +50,8 @@ export default {
       this.$store.commit("userIsConnected", false);
       this.$store.commit("userIsAdmin", false);
       this.$store.commit("userToken", false);
+      this.$store.commit("userComment", null);
+      this.$store.commit("favoritePicture", null);
     }
   },
 }
