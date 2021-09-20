@@ -11,9 +11,9 @@
     </div>
 
     <div class="carousel-options">
-      <div>
-        <button class="previous-button" v-on:click="previousPicture()" >Previous</button>
-        <button class="next-button" v-on:click="nextPicture()" >Next</button>
+      <div class="carousel-button">
+        <i class="fas fa-arrow-left" ref="prev" v-on:click="previousPicture()"></i>
+        <i class="fas fa-arrow-right" ref="next" v-on:click="nextPicture()"></i>
       </div>
       <div>
         Orientation:
@@ -107,7 +107,7 @@ export default {
       let scene = document.getElementsByClassName("scene")[0];
       if (this.isHorizontal) {
         scene.style.marginTop = '25px';
-        scene.style.marginBottom = '0px';
+        scene.style.marginBottom = '-50px';
       } else {
         scene.style.marginTop = '450px';
         scene.style.marginBottom = '450px';
@@ -192,6 +192,17 @@ export default {
 
 .carousel-options div {
   padding: 15px;
+}
+
+.carousel-button i {
+  font-size: 2.5rem;
+  padding: 10px;
+  transition: 0.7s;
+}
+
+.carousel-button i:hover {
+  cursor: pointer;
+  transform: rotate(360deg);
 }
 
 .cell-image {
