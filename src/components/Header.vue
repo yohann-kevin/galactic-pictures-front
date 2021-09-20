@@ -1,8 +1,8 @@
 <template>
   <header class="header">
       <div class="header-logo">
-        <h1>Logo</h1>
-        <h2>subtitle</h2>
+        <h1>Daily Galactic Pictures</h1>
+        <!-- <h2>subtitle</h2> -->
       </div>
       <nav class="header-nav">
         <ul>
@@ -74,10 +74,13 @@ export default {
 
 .header-logo h1 {
   margin-top: 20px;
+  font-family: 'nasa';
+  font-size: 1.7rem;
 }
 
 .header-nav {
   width: 70%;
+  font-family: 'nasa';
 }
 
 .header-nav > ul {
@@ -122,6 +125,7 @@ export default {
   background-color: #fff;
   border: none;
   transition: 0.7s;
+  font-family: 'nasa';
 }
 
 .header-button button:hover {

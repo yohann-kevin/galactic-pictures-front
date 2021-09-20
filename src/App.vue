@@ -52,6 +52,15 @@ export default {
 </script>
 
 <style>
+@font-face {
+  font-family: 'nasa';
+  src: url('./assets/fonts/nasalization/nasalization_rg-webfont.woff2') format('woff2'),
+        url('./assets/fonts/nasalization/nasalization_rg-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -61,6 +70,10 @@ export default {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+}
+
+h1 {
+  font-family: 'nasa';
 }
 
 body {
