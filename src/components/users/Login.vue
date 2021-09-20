@@ -60,7 +60,7 @@ export default {
       };
 
       this.axios(config).then(response => {
-        this.saveUserLog(response.data, token);
+        if (typeof response.data == "object") this.saveUserLog(response.data, token);
       }).catch(error => {
         console.log(error);
       });
