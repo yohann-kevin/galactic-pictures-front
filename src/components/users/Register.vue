@@ -19,7 +19,6 @@ export default {
   data() {
     return {
       axios: axios,
-      registerUrl: "https://fast-peak-47997.herokuapp.com/api/user/sign-up",
       login: null,
       password: null
     }
@@ -56,5 +55,5 @@ export default {
 </script>
 
 <style>
-
+.register { min-height: 80vh; }
 </style>

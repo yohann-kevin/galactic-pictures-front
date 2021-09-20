@@ -99,5 +99,5 @@ export default {
 </script>
 
 <style>
-
+.login { min-height: 80vh; }
 </style>

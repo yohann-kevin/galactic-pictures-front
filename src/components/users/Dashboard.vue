@@ -66,6 +66,7 @@ export default {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  min-height: 80vh;
 }
 
 .dashboard h1,

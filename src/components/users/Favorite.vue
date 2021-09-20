@@ -24,5 +24,5 @@ export default {
 </script>
 
 <style>
-
+.favorite { min-height: 80vh; }
 </style>
