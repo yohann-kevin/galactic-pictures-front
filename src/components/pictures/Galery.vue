@@ -1,28 +1,40 @@
 <template>
-  <div class="scene">
-    <div class="carousel">
-      <div class="carousel-cell" v-for="(picture, selectedIndex) in pictures" :key="selectedIndex">
-        <img class="cell-image" :src="picture.url" v-on:click="selectPicture()" v-if="picture.mediaType != 'video'"/>
-        <img class="cell-image" :src="videoThumbnail(picture.url)" v-on:click="selectPicture()" v-else/>
+  <div class="galery">
+    <h1>Picture of these last two weeks</h1>
+    <div class="scene">
+      <div class="carousel">
+        <div class="carousel-cell" v-for="(picture, selectedIndex) in pictures" :key="selectedIndex">
+          <img class="cell-image" :src="picture.url" v-on:click="selectPicture()" v-if="picture.mediaType != 'video'"/>
+          <img class="cell-image" :src="videoThumbnail(picture.url)" v-on:click="selectPicture()" v-else/>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="carousel-options">
-    <div>
-      <button class="previous-button" v-on:click="previousPicture()" >Previous</button>
-      <button class="next-button" v-on:click="nextPicture()" >Next</button>
+    <div class="carousel-options">
+      <div>
+        <button class="previous-button" v-on:click="previousPicture()" >Previous</button>
+        <button class="next-button" v-on:click="nextPicture()" >Next</button>
+      </div>
+      <div>
+        Orientation:
+        <label>
+          <input type="radio" name="orientation" value="horizontal" checked v-on:click="onOrientationChange()" />
+          horizontal
+        </label>
+        <label>
+          <input type="radio" name="orientation" value="vertical" v-on:click="onOrientationChange()" />
+          vertical
+        </label>
+      </div>
     </div>
-    <div>
-      Orientation:
-      <label>
-        <input type="radio" name="orientation" value="horizontal" checked v-on:click="onOrientationChange()" />
-        horizontal
-      </label>
-      <label>
-        <input type="radio" name="orientation" value="vertical" v-on:click="onOrientationChange()" />
-        vertical
-      </label>
+
+    <div class="all-picture">
+      <h1>All picture provided by nasa</h1>
+      <article v-for="(picture, i) in currentPictures" :key="i" >
+        <img v-on:click="selectPictureInAllPicture(i)" :src="picture.url" v-if="picture.mediaType != 'video'" />
+        <img v-on:click="selectPictureInAllPicture(i)" :src="videoThumbnail(picture.url)" v-else />
+        <p v-on:click="selectPictureInAllPicture(i)">{{ picture.title }}</p>
+      </article>
     </div>
   </div>
 </template>
@@ -67,9 +79,6 @@ export default {
       this.onOrientationChange();
     },
     rotateCarousel() {
-      if ((this.selectedIndex % 15) == 0 && this.selectedIndex != 0) {
-        for (let i = 0; i < 15; i++) this.currentPictures.push(this.currentPictures.splice(i, 1)[0]);
-      }
       let angle = this.theta * this.selectedIndex * -1;
       this.carousel.style.transform = 'translateZ(' + -this.radius + 'px) ' + this.rotateFn + '(' + angle + 'deg)';
     },
@@ -95,7 +104,7 @@ export default {
       let checkedRadio = document.querySelector('input[name="orientation"]:checked');
       this.isHorizontal = checkedRadio.value == 'horizontal';
       this.rotateFn = this.isHorizontal ? 'rotateY' : 'rotateX';
-      document.getElementsByClassName("scene")[0].style.marginTop = this.isHorizontal ? '70px' : '450px' ;
+      document.getElementsByClassName("scene")[0].style.marginTop = this.isHorizontal ? '25px' : '450px' ;
       this.changeCarousel();
     },
     nextPicture() {
@@ -109,6 +118,9 @@ export default {
     selectPicture() {
       this.$emit("selectPicture", this.currentPictures[this.selectedIndex]);
     },
+    selectPictureInAllPicture(index) {
+      this.$emit("selectPicture", this.currentPictures[index]);
+    },
     videoThumbnail(initialUrl) {
       let videoId = initialUrl.split("/");
       videoId = videoId[videoId.length - 1].split("?")[0];
@@ -119,6 +131,16 @@ export default {
 </script>
 
 <style>
+.galery {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.galery h1 {
+  width: 100%;
+}
+
 .scene {
   position: relative;
   width: 840px;
@@ -168,5 +190,36 @@ export default {
 .cell-image {
   width: 100%;
   height: 100%;
+}
+
+.all-picture {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.all-picture h1 {
+  width: 100%;
+}
+
+.all-picture article {
+  width: 21%;
+  background-color: #efefef;
+  margin: 25px;
+  border: none;
+  transition: 0.8s;
+}
+
+.all-picture article:hover {
+  cursor: pointer;
+  background-color: #fff;
+  box-shadow: 0px 30px 60px 0px #c0bebe;
+}
+
+.all-picture article > img {
+  width: 100%;
+  min-height: 200px;
+  max-height: 200px;
 }
 </style>
