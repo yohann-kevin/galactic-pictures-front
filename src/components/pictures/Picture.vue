@@ -3,11 +3,11 @@
     <div class="single-picture-content">
       <h1>{{ image.title }}</h1>
       <img :src="image.url" v-if="image.mediaType != 'video'" />
-      <iframe width="100%" height="100%" :src="image.url" v-else></iframe>
+      <iframe width="100%" height="600px" :src="image.url" v-if="image.mediaType == 'video'"></iframe>
       <div class="picture-icon" v-if="this.isConnected">
         <i class="fas fa-star" v-on:click="unlikePicture()" v-if="isLiked"></i>
         <i class="far fa-star" v-on:click="likePicture()" v-else></i><p> {{ image.toLike }}</p>
-        <i class="fas fa-download" v-on:click="downloadPicture()"></i><p> {{ image.download }}</p>
+        <i class="fas fa-download" v-on:click="downloadPicture()" v-if="image.mediaType != 'video'"></i><p> {{ image.download }}</p>
       </div>
       <p>Copyright : <span>{{ image.copyright }}</span></p>
       <p>release date : <span>{{ this.formatDate(image.date) }}</span></p>
