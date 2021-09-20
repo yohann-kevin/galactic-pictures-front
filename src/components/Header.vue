@@ -7,8 +7,8 @@
       <nav class="header-nav">
         <ul>
           <li><router-link to="/">Galery</router-link></li>
-          <li><a href="#">Plop</a></li>
-          <li><a href="#">Plop</a></li>
+          <li><router-link to="/wip">About</router-link></li>
+          <li><router-link to="/wip">Contact</router-link></li>
           <li v-if="this.isConnected"><router-link to="/favorite">Favorite Picture</router-link></li>
         </ul>
       </nav>
