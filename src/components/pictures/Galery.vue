@@ -104,7 +104,14 @@ export default {
       let checkedRadio = document.querySelector('input[name="orientation"]:checked');
       this.isHorizontal = checkedRadio.value == 'horizontal';
       this.rotateFn = this.isHorizontal ? 'rotateY' : 'rotateX';
-      document.getElementsByClassName("scene")[0].style.marginTop = this.isHorizontal ? '25px' : '450px' ;
+      let scene = document.getElementsByClassName("scene")[0];
+      if (this.isHorizontal) {
+        scene.style.marginTop = '25px';
+        scene.style.marginBottom = '0px';
+      } else {
+        scene.style.marginTop = '450px';
+        scene.style.marginBottom = '450px';
+      }
       this.changeCarousel();
     },
     nextPicture() {

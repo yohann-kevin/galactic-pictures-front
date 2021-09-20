@@ -7,17 +7,20 @@
     v-on:selectPicture="pictureSelect"
     :currentUser="findCurrentUser()"
   ></router-view>
+  <Footer/>
 </template>
 
 <script>
-import Header from './components/Header.vue';
+import Header from './components/layouts/Header.vue';
+import Footer from './components/layouts/Footer.vue';
 
 import axios from 'axios';
 
 export default {
   name: 'App',
   components: {
-    Header
+    Header,
+    Footer
   },
   data() {
     return {
@@ -70,6 +73,7 @@ export default {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  overflow-x: hidden;
 }
 
 h1 {
