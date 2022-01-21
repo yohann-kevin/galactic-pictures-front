@@ -38,9 +38,10 @@ export default {
   },
   methods: {
     getPictures() {
-      this.axios.get(process.env.VUE_APP_API_LINK + "picture").then(response => this.managePicture(response.data));
+      this.axios.get(process.env.VUE_APP_API_LINK + "galactic_pictures").then(response => this.managePicture(response.data));
     },
     managePicture(data) {
+      console.log(data);
       this.pictures = data;
     },
     pictureSelect(value) {

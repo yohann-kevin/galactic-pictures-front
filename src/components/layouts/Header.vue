@@ -12,14 +12,14 @@
           <li v-if="this.isConnected"><router-link to="/favorite">Favorite Picture</router-link></li>
         </ul>
       </nav>
-      <div class="header-button" v-if="!this.isConnected">
+      <!-- <div class="header-button" v-if="!this.isConnected">
         <button><router-link to="/login">Login</router-link></button>
         <button><router-link to="/sign-up">Sign in</router-link></button>
       </div>
       <div class="header-button" v-else>
         <button><router-link to="/dashboard">Dashboard</router-link></button>
         <button><router-link to="/" v-on:click="logoutUser()">Logout</router-link></button>
-      </div>
+      </div> -->
   </header>
 </template>
 
